@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+
+  /* main-container */
+  .main-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 1568px) {
+    .main-container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .main-container {
+      padding: 0 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .main-container {
+      padding: 0 0.5rem;
+    }
+  }
+  /* end of main-container */
+
