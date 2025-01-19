@@ -12,9 +12,9 @@ export const MonthlyTrendsChart: React.FC<MonthlyTrendsProps> = ({
   expenseData, 
   categories 
 }) => {
-  const options = {
+  const options: ApexCharts.ApexOptions = {
     chart: {
-      type: 'line',
+      type: 'line' as const,
       height: 350
     },
     colors: ['#10B981', '#EF4444'],

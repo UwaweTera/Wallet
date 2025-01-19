@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { useAuth } from "../contexts/AuthContext";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  email: yup.string().required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
   const { setCurrentUser } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = (data: any) => {
     const users = JSON.parse(localStorage.getItem("wallet_users") || "[]");
     const user = users.find(
-      (u: any) => u.email === formData.email && u.password === formData.password
+      (u: any) => u.email === data.email && u.password === data.password
     );
 
     if (user) {
@@ -36,20 +46,19 @@ const Login: React.FC = () => {
           Login to Wallet
         </h2>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
               type="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              {...register("email")}
               className="mt-1 block w-full rounded-md border border-gray-300 p-2"
-              required
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           <div>
@@ -58,13 +67,14 @@ const Login: React.FC = () => {
             </label>
             <input
               type="password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              {...register("password")}
               className="mt-1 block w-full rounded-md border border-gray-300 p-2"
-              required
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <button
