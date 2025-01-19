@@ -45,5 +45,18 @@ A modern financial management application built with React and TypeScript that h
 ## Getting Started
 
 1. Clone the repository
-```bash
-git clone 
+
+git clone https://github.com/UwaweTera/Wallet.git
+cd Wallet
+
+
+2. Install dependencies
+
+npm install
+
+
+3. Start the development server
+
+npm run dev
+
+
