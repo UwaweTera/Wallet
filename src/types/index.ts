@@ -39,3 +39,10 @@ export interface Budget {
   categoryId: string;
   spent: number;
 }
+
+export type Expense = {
+  amount: number;
+  category: string;
+  date: string;
+  description: string;
+};
